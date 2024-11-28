@@ -1,49 +1,47 @@
-# Laravel REST API with Sanctum
+# Laravel REST API with Sanctum  
 
-This is an example of a REST API using auth tokens with Laravel Sanctum
+This is a simple REST API using Laravel Sanctum for token-based authentication.  
 
-## Usage
+## Setup  
 
-Change the *.env.example* to *.env* and add your database info
+1. **Configure Environment:**  
+   - Rename `.env.example` to `.env`.  
+   - Add your database information in the `.env` file:  
+     ```env  
+     DB_CONNECTION=mysql  
+     DB_HOST=127.0.0.1  
+     DB_PORT=3306  
+     DB_DATABASE=laravel_sanctum  
+     DB_USERNAME=root  
+     DB_PASSWORD=12345678  
+     ```  
 
-For SQLite, add
-```
-DB_CONNECTION=sqlite
-DB_HOST=127.0.0.1
-DB_PORT=3306
-```
+2. **Run the Server:**  
+   Start the development server with:  
+   ```bash  
+   php artisan serve  
+   ```  
 
-Create a _database.sqlite_ file in the _database_ directory
+## API Routes  
 
-```
-# Run the webserver on port 8000
-php artisan serve
-```
+### Public Routes  
 
-## Routes
+1. **Login**  
+   - **Endpoint:** `POST /api/login`  
+   - **Body:**  
+     ```json  
+     { "email": "example@example.com", "password": "password" }  
+     ```  
 
-```
-# Public
+2. **Register**  
+   - **Endpoint:** `POST /api/register`  
+   - **Body:**  
+     ```json  
+     { "name": "John Doe", "email": "john@example.com", "password": "password", "password_confirmation": "password" }  
+     ```  
 
-GET   /api/products
-GET   /api/products/:id
+### Protected Route (Requires Authentication)  
 
-POST   /api/login
-@body: email, password
+1. **Logout**  
+   - **Endpoint:** `POST /api/logout`  
 
-POST   /api/register
-@body: name, email, password, password_confirmation
-
-
-# Protected
-
-POST   /api/products
-@body: name, slug, description, price
-
-PUT   /api/products/:id
-@body: ?name, ?slug, ?description, ?price
-
-DELETE  /api/products/:id
-
-POST    /api/logout
-```
